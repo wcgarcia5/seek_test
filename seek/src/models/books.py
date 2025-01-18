@@ -135,3 +135,36 @@ class Book:
         ]
         result = list(db.books.aggregate(pipeline))
         return result[0]['average_price'] if result else 0
+
+    @staticmethod
+    def create_many(book_data_list):
+        """
+        Bulk create books.
+
+        Args:
+            book_data_list: List of validated book data.
+
+        Returns:
+            List of created book IDs.
+        """
+        # Insert many documents into the database
+        book_data_list = utils.convert_dates(book_data_list)
+        result = db.books.insert_many(book_data_list)
+        return result.inserted_ids
+
+    @staticmethod
+    def get_by_ids(ids):
+        """
+        Fetch multiple books by their IDs.
+
+        Args:
+            ids: List of MongoDB IDs.
+
+        Returns:
+            List of book documents.
+        """
+
+        return [
+            str(book['_id'])
+            for book in list(db.books.find({"_id": {"$in": ids}}))
+        ]
