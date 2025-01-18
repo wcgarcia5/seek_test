@@ -134,3 +134,35 @@ class BookAveragePriceView(APIView):
         """
         average_price = Book.average_price_by_year(year)
         return Response({'year': year, 'average_price': average_price}, status=status.HTTP_200_OK)
+
+
+class BulkBookCreateView(APIView):
+    """
+    Endpoint for creating multiple books in bulk.
+    """
+
+    def post(self, request):
+        """
+        Creates multiple books in bulk.
+
+        Args:
+            request: The request object containing a list of book data.
+
+        Returns:
+            Response:
+                - A Response object containing a list of created books
+                  and an HTTP status code of 201 (CREATED) if successful
+        """
+        # Check if the input is a list
+        if not isinstance(request.data, list):
+            return Response(
+                {"error": "Expected a list of book objects."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        serializer = BookSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            created_ids = Book.create_many(serializer.validated_data)
+            created_books = Book.get_by_ids(created_ids)
+            return Response(created_books, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
