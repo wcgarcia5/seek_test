@@ -18,10 +18,6 @@ RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r re
 # Copy all project files into the container
 COPY . /app/
 
-# Copy the script to create a user into the container
-COPY create_user.sh /app/
-RUN chmod +x /app/create_user.sh
-
 # Set environment variable to prevent Python from buffering output
 ENV PYTHONUNBUFFERED=1
 
