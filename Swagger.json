@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/books/": {
+    "/books": {
       "get": {
         "summary": "Get All Books",
         "security": [
@@ -66,7 +66,7 @@
         }
       }
     },
-    "/books/migrate/": {
+    "/books/migrate": {
       "post": {
         "summary": "Migrate Books (Bulk Create)",
         "security": [
@@ -111,7 +111,7 @@
         }
       }
     },
-    "/books/{book_id}/": {
+    "/books/{book_id}": {
       "get": {
         "summary": "Get Book by ID",
         "security": [
@@ -209,7 +209,7 @@
         }
       }
     },
-    "/books/average-price/{year}/": {
+    "/books/average-price/{year}": {
       "get": {
         "summary": "Get Average Price by Year",
         "security": [
@@ -234,7 +234,7 @@
         }
       }
     },
-    "/api/token/": {
+    "/api/token": {
       "post": {
         "summary": "Token Obtain Pair",
         "requestBody": {
@@ -261,7 +261,7 @@
         }
       }
     },
-    "/api/token/refresh/": {
+    "/api/token/refresh": {
       "post": {
         "summary": "Token Refresh",
         "requestBody": {
