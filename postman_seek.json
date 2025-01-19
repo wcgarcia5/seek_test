@@ -118,6 +118,50 @@
                     "path": ["books", "average-price", ":year"]
                 }
             }
+        },
+        {
+            "name": "Token Obtain Pair",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"example_user\",\n    \"password\": \"example_password\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/token/",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "token"]
+                }
+            }
+        },
+        {
+            "name": "Token Refresh",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/token/refresh/",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "token", "refresh"]
+                }
+            }
         }
     ]
 }
