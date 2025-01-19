@@ -1,129 +1,117 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Seek Test",
-    "description": "API documentation for Seek Test application",
-    "version": "1.0.0"
+    "title": "Books API",
+    "version": "1.0.0",
+    "description": "API for managing books with user authentication."
   },
   "servers": [
     {
-      "url": "http://localhost:8000/api"
+      "url": "http://52.42.151.155:8000/api",
+      "description": "Base URL for the API."
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
     }
   ],
   "paths": {
     "/books": {
       "get": {
-        "summary": "Get All Books",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Get list of books",
         "responses": {
           "200": {
-            "description": "A list of books"
+            "description": "List of books retrieved successfully."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       },
       "post": {
-        "summary": "Create a New Book",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Create a new book",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "author": {
-                    "type": "string"
-                  },
-                  "published_date": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "genre": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "number"
-                  }
-                }
+              "example": {
+                "title": "Sample Book",
+                "author": "John Doe",
+                "price": 19.99,
+                "published_year": 2023
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Book created successfully"
+            "description": "Book created successfully."
+          },
+          "400": {
+            "description": "Invalid data."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       }
     },
     "/books/migrate": {
       "post": {
-        "summary": "Migrate Books (Bulk Create)",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Bulk create books",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "title": {
-                      "type": "string"
-                    },
-                    "author": {
-                      "type": "string"
-                    },
-                    "published_date": {
-                      "type": "string",
-                      "format": "date"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "number"
-                    }
-                  }
+              "example": [
+                {
+                  "title": "Book 1",
+                  "author": "Author 1",
+                  "price": 10.5,
+                  "published_year": 2022
+                },
+                {
+                  "title": "Book 2",
+                  "author": "Author 2",
+                  "price": 15,
+                  "published_year": 2023
                 }
-              }
+              ]
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Books created successfully"
+            "description": "Books created successfully."
+          },
+          "400": {
+            "description": "Invalid data."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       }
     },
     "/books/{book_id}": {
       "get": {
-        "summary": "Get Book by ID",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Get a book by ID",
         "parameters": [
           {
             "name": "book_id",
             "in": "path",
             "required": true,
+            "description": "ID of the book to retrieve.",
             "schema": {
               "type": "string"
             }
@@ -131,72 +119,62 @@
         ],
         "responses": {
           "200": {
-            "description": "A single book"
+            "description": "Book retrieved successfully."
+          },
+          "404": {
+            "description": "Book not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       },
       "put": {
-        "summary": "Update Book by ID",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Update a book by ID",
         "parameters": [
           {
             "name": "book_id",
             "in": "path",
             "required": true,
+            "description": "ID of the book to update.",
             "schema": {
               "type": "string"
             }
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "author": {
-                    "type": "string"
-                  },
-                  "published_date": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "genre": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "number"
-                  }
-                }
+              "example": {
+                "price": 25
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Book updated successfully"
+            "description": "Book updated successfully."
+          },
+          "400": {
+            "description": "Invalid data."
+          },
+          "404": {
+            "description": "Book not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       },
       "delete": {
-        "summary": "Delete Book by ID",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Delete a book by ID",
         "parameters": [
           {
             "name": "book_id",
             "in": "path",
             "required": true,
+            "description": "ID of the book to delete.",
             "schema": {
               "type": "string"
             }
@@ -204,24 +182,26 @@
         ],
         "responses": {
           "204": {
-            "description": "Book deleted successfully"
+            "description": "Book deleted successfully."
+          },
+          "404": {
+            "description": "Book not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       }
     },
     "/books/average-price/{year}": {
       "get": {
-        "summary": "Get Average Price by Year",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Get average price of books by year",
         "parameters": [
           {
             "name": "year",
             "in": "path",
             "required": true,
+            "description": "Year to calculate the average price for.",
             "schema": {
               "type": "integer"
             }
@@ -229,69 +209,86 @@
         ],
         "responses": {
           "200": {
-            "description": "Average price of books"
+            "description": "Average price calculated successfully."
+          },
+          "500": {
+            "description": "Internal Server Error."
           }
         }
       }
     },
-    "/api/token": {
+    "/register": {
       "post": {
-        "summary": "Token Obtain Pair",
+        "summary": "User registration",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                }
+              "example": {
+                "username": "new_user",
+                "password": "secure_password"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully."
+          },
+          "400": {
+            "description": "Invalid data."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "summary": "Obtain JWT token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "username": "user",
+                "password": "password"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Token obtained successfully"
+            "description": "Token retrieved successfully."
+          },
+          "401": {
+            "description": "Invalid credentials."
           }
         }
       }
     },
-    "/api/token/refresh": {
+    "/token/refresh": {
       "post": {
-        "summary": "Token Refresh",
+        "summary": "Refresh JWT token",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "refresh": {
-                    "type": "string"
-                  }
-                }
+              "example": {
+                "refresh": "<REFRESH_TOKEN>"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Token refreshed successfully"
+            "description": "Token refreshed successfully."
+          },
+          "401": {
+            "description": "Invalid refresh token."
           }
         }
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
       }
     }
   }
