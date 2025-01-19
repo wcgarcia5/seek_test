@@ -26,4 +26,4 @@ RUN chmod +x /app/create_user.sh
 ENV PYTHONUNBUFFERED=1
 
 # Run migrations and create the user, then start the app
-CMD ["sh", "-c", "python manage.py migrate && python manage.py shell -c \"from django.contrib.auth.models import User; User.objects.create_user(username='seek_test', email='seek_test@example.com', password='seek_password') if not User.objects.filter(username='seek_test').exists() else None\" && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

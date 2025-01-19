@@ -1,24 +1,24 @@
 {
     "info": {
-        "_postman_id": "example-id-1234",
-        "name": "Seek Test",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        "_postman_id": "12345-67890-abcdef",
+        "name": "Books API Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "variable": [
+            {
+                "key": "base_url",
+                "value": "http://52.42.151.155:8000/api"
+            }
+        ]
     },
-    "variable": [
-        {
-            "key": "base_url",
-            "value": "localhost:8000/api"
-        }
-    ],
     "item": [
         {
-            "name": "Get All Books",
+            "name": "Books List",
             "request": {
                 "method": "GET",
                 "header": [
                     {
                         "key": "Authorization",
-                        "value": "Bearer {{token}}",
+                        "value": "Bearer <YOUR_TOKEN>",
                         "type": "text"
                     }
                 ],
@@ -34,13 +34,13 @@
             }
         },
         {
-            "name": "Create a New Book",
+            "name": "Create Book",
             "request": {
                 "method": "POST",
                 "header": [
                     {
                         "key": "Authorization",
-                        "value": "Bearer {{token}}",
+                        "value": "Bearer <YOUR_TOKEN>",
                         "type": "text"
                     },
                     {
@@ -51,7 +51,7 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n    \"title\": \"Example Book\",\n    \"author\": \"John Doe\",\n    \"published_date\": \"2025-01-01\",\n    \"genre\": \"Fiction\",\n    \"price\": 29.99\n}"
+                    "raw": "{\n  \"title\": \"Sample Book\",\n  \"author\": \"John Doe\",\n  \"price\": 19.99,\n  \"published_year\": 2023\n}"
                 },
                 "url": {
                     "raw": "{{base_url}}/books",
@@ -65,13 +65,13 @@
             }
         },
         {
-            "name": "Migrate Books (Bulk Create)",
+            "name": "Bulk Create Books",
             "request": {
                 "method": "POST",
                 "header": [
                     {
                         "key": "Authorization",
-                        "value": "Bearer {{token}}",
+                        "value": "Bearer <YOUR_TOKEN>",
                         "type": "text"
                     },
                     {
@@ -82,7 +82,7 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "[\n    {\n        \"title\": \"Clean Code\",\n        \"author\": \"Robert C. Martin\",\n        \"published_date\": \"2008-08-11\",\n        \"genre\": \"Programming\",\n        \"price\": 45.99\n    },\n    {\n        \"title\": \"The Pragmatic Programmer\",\n        \"author\": \"Andrew Hunt and David Thomas\",\n        \"published_date\": \"1999-10-20\",\n        \"genre\": \"Programming\",\n        \"price\": 39.99\n    },\n    {\n        \"title\": \"To Kill a Mockingbird\",\n        \"author\": \"Harper Lee\",\n        \"published_date\": \"1960-07-11\",\n        \"genre\": \"Fiction\",\n        \"price\": 15.99\n    },\n    {\n        \"title\": \"1984\",\n        \"author\": \"George Orwell\",\n        \"published_date\": \"1949-06-08\",\n        \"genre\": \"Fiction\",\n        \"price\": 14.99\n    },\n    {\n        \"title\": \"Design Patterns\",\n        \"author\": \"Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides\",\n        \"published_date\": \"1994-10-21\",\n        \"genre\": \"Programming\",\n        \"price\": 54.95\n    }\n]"
+                    "raw": "[\n  {\n    \"title\": \"Book 1\",\n    \"author\": \"Author 1\",\n    \"price\": 10.5,\n    \"published_year\": 2022\n  },\n  {\n    \"title\": \"Book 2\",\n    \"author\": \"Author 2\",\n    \"price\": 15.0,\n    \"published_year\": 2023\n  }\n]"
                 },
                 "url": {
                     "raw": "{{base_url}}/books/migrate",
@@ -103,7 +103,7 @@
                 "header": [
                     {
                         "key": "Authorization",
-                        "value": "Bearer {{token}}",
+                        "value": "Bearer <YOUR_TOKEN>",
                         "type": "text"
                     }
                 ],
@@ -120,13 +120,68 @@
             }
         },
         {
-            "name": "Get Average Price by Year",
+            "name": "Update Book by ID",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <YOUR_TOKEN>",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"price\": 25.0\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/books/:book_id",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books",
+                        ":book_id"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Delete Book by ID",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <YOUR_TOKEN>",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/books/:book_id",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books",
+                        ":book_id"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Average Price by Year",
             "request": {
                 "method": "GET",
                 "header": [
                     {
                         "key": "Authorization",
-                        "value": "Bearer {{token}}",
+                        "value": "Bearer <YOUR_TOKEN>",
                         "type": "text"
                     }
                 ],
@@ -144,6 +199,32 @@
             }
         },
         {
+            "name": "User Registration",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"username\": \"new_user\",\n  \"password\": \"secure_password\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/register",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "register"
+                    ]
+                }
+            }
+        },
+        {
             "name": "Token Obtain Pair",
             "request": {
                 "method": "POST",
@@ -156,15 +237,14 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n    \"username\": \"example_user\",\n    \"password\": \"example_password\"\n}"
+                    "raw": "{\n  \"username\": \"user\",\n  \"password\": \"password\"\n}"
                 },
                 "url": {
-                    "raw": "{{base_url}}/api/token",
+                    "raw": "{{base_url}}/token",
                     "host": [
                         "{{base_url}}"
                     ],
                     "path": [
-                        "api",
                         "token"
                     ]
                 }
@@ -183,15 +263,14 @@
                 ],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+                    "raw": "{\n  \"refresh\": \"<REFRESH_TOKEN>\"\n}"
                 },
                 "url": {
-                    "raw": "{{base_url}}/api/token/refresh",
+                    "raw": "{{base_url}}/token/refresh",
                     "host": [
                         "{{base_url}}"
                     ],
                     "path": [
-                        "api",
                         "token",
                         "refresh"
                     ]

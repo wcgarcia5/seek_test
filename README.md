@@ -93,10 +93,21 @@ coverage html
 ```
 
 ## A tener en cuenta
-El archivo create_user.sh crea un usuario de prueba para poder solicitar el token y asi consumir el API
+Para crear usuarios de pruebas debes ejecutar la peticion de  `/register` permite crear un nuevo usuario en la aplicación.
 
+### URL
+`POST /register`
 
-```bash
-user: test
-pass: password
-```
+### Headers
+| Key           | Value              | Required |
+|---------------|--------------------|----------|
+| Content-Type  | application/json   | Sí       |
+
+### Body
+El cuerpo de la petición debe contener los siguientes campos en formato JSON:
+
+```json
+{
+  "username": "new_user",
+  "password": "secure_password"
+}
