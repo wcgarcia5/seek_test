@@ -1,22 +1,13 @@
 #!/bin/bash
-# create_user.sh
 
-echo "Starting user creation script..."
+# Define the username, email, and password for the user
+USERNAME="seek_test"
+EMAIL="seek_test@example.com"
+PASSWORD="seek_password"
 
-# Check if the user already exists
-if ! python manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='api_test').exists()" > /dev/null; then
-    echo "Creating regular user..."
-    
-    # Create a normal user (not a superuser)
-    python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_user('api_test', 'api@test.com', 'password')"
-    
-    if [ $? -eq 0 ]; then
-        echo "Regular user created successfully."
-    else
-        echo "Error creating user."
-    fi
-else
-    echo "User already exists."
-fi
-
-echo "User creation script completed."
+# Create the user if it doesn't already exist
+echo "Creating user $USERNAME if it doesn't exist..."
+python manage.py shell <<EOF
+from django.contrib.auth.models import User
+if not User.objects.filter(username="$USERNAME").exists():
+    User.objects.create_user(username="$USERNAME", email="$EMAIL", password="$PASSWORD"
