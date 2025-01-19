@@ -1,28 +1,32 @@
 FROM python:3.12-slim
 
-# Instala dependencias del sistema necesarias
+# Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
     && apt-get clean
 
-# Establece el directorio de trabajo
+# Set the working directory for the application
 WORKDIR /app
 
-# Copia solo el archivo de dependencias
+# Copy only the dependencies file (requirements.txt) to the container
 COPY requirements.txt /app/
 
-# Instala las dependencias de Python
+# Install Python dependencies from requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Copia todo el contenido del proyecto
+# Copy all project files into the container
 COPY . /app/
 
-# Configuración para evitar el almacenamiento en búfer de salida de Python
+# Copy the script to create a user into the container
+COPY create_user.sh /app/
+RUN chmod +x /app/create_user.sh
+
+# Set environment variable to prevent Python from buffering output
 ENV PYTHONUNBUFFERED=1
 
-# Expone el puerto para la aplicación
+# Expose the port that the app will run on
 EXPOSE 8000
 
-# Comando por defecto para iniciar la aplicación
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# Default command to run when the container starts: create user and then run Django server
+CMD ["sh", "-c", "/app/create_user.sh && python manage.py runserver 0.0.0.0:8000"]

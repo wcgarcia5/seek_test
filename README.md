@@ -16,6 +16,8 @@ Este proyecto es una API RESTful creada con **Django REST Framework** (Django RF
 
 7. [Test Unitarios y Coverage](#test-unit-coverage)
 
+8. [A tener en cuenta](#observations)
+
 ---
 
 ## Descripción
@@ -88,4 +90,13 @@ curl --location 'localhost:8000/api/books/migrate' \
 coverage run manage.py test 
 coverage report
 coverage html
+```
+
+## A tener en cuenta
+El archivo create_user.sh crea un usuario de prueba para poder solicitar el token y asi consumir el API
+
+
+```bash
+user: test
+pass: password
 ```
