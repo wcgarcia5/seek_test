@@ -20,6 +20,7 @@ COPY . /app/
 
 # Copy the script to create a user into the container
 COPY create_user.sh /app/
+RUN chown root:root /app/create_user.sh
 RUN chmod +x /app/create_user.sh
 
 # Set environment variable to prevent Python from buffering output
