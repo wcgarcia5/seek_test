@@ -23,7 +23,7 @@
                     }
                 ],
                 "url": {
-                    "raw": "{{base_url}}/books/",
+                    "raw": "{{base_url}}/books",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -54,7 +54,7 @@
                     "raw": "{\n    \"title\": \"Example Book\",\n    \"author\": \"John Doe\",\n    \"published_date\": \"2025-01-01\",\n    \"genre\": \"Fiction\",\n    \"price\": 29.99\n}"
                 },
                 "url": {
-                    "raw": "{{base_url}}/books/",
+                    "raw": "{{base_url}}/books",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -85,7 +85,7 @@
                     "raw": "[\n    {\n        \"title\": \"Clean Code\",\n        \"author\": \"Robert C. Martin\",\n        \"published_date\": \"2008-08-11\",\n        \"genre\": \"Programming\",\n        \"price\": 45.99\n    },\n    {\n        \"title\": \"The Pragmatic Programmer\",\n        \"author\": \"Andrew Hunt and David Thomas\",\n        \"published_date\": \"1999-10-20\",\n        \"genre\": \"Programming\",\n        \"price\": 39.99\n    },\n    {\n        \"title\": \"To Kill a Mockingbird\",\n        \"author\": \"Harper Lee\",\n        \"published_date\": \"1960-07-11\",\n        \"genre\": \"Fiction\",\n        \"price\": 15.99\n    },\n    {\n        \"title\": \"1984\",\n        \"author\": \"George Orwell\",\n        \"published_date\": \"1949-06-08\",\n        \"genre\": \"Fiction\",\n        \"price\": 14.99\n    },\n    {\n        \"title\": \"Design Patterns\",\n        \"author\": \"Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides\",\n        \"published_date\": \"1994-10-21\",\n        \"genre\": \"Programming\",\n        \"price\": 54.95\n    }\n]"
                 },
                 "url": {
-                    "raw": "{{base_url}}/books/migrate/",
+                    "raw": "{{base_url}}/books/migrate",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -108,7 +108,7 @@
                     }
                 ],
                 "url": {
-                    "raw": "{{base_url}}/books/:book_id/",
+                    "raw": "{{base_url}}/books/:book_id",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -131,7 +131,7 @@
                     }
                 ],
                 "url": {
-                    "raw": "{{base_url}}/books/average-price/:year/",
+                    "raw": "{{base_url}}/books/average-price/:year",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -159,7 +159,7 @@
                     "raw": "{\n    \"username\": \"example_user\",\n    \"password\": \"example_password\"\n}"
                 },
                 "url": {
-                    "raw": "{{base_url}}/api/token/",
+                    "raw": "{{base_url}}/api/token",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -186,7 +186,7 @@
                     "raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
                 },
                 "url": {
-                    "raw": "{{base_url}}/api/token/refresh/",
+                    "raw": "{{base_url}}/api/token/refresh",
                     "host": [
                         "{{base_url}}"
                     ],

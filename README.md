@@ -14,6 +14,8 @@ Este proyecto es una API RESTful creada con **Django REST Framework** (Django RF
 
 6. [Agregar Libros de Prueba](#agregar-libros-prueba)
 
+7. [Test Unitarios y Coverage](#test-unit-coverage)
+
 ---
 
 ## Descripción
@@ -79,4 +81,11 @@ curl --location 'localhost:8000/api/books/migrate' \
         "price": 45.99
     }
 ]'
+```
+
+## Test Unitarios y Coverage
+```bash
+coverage run manage.py test 
+coverage report
+coverage html
 ```
