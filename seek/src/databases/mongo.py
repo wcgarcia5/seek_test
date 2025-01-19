@@ -1,8 +1,11 @@
-from pymongo import MongoClient
-import certifi
-# Configuración de la conexión
-MONGO_URI = "mongodb+srv://wcgarcia5:wcgarcia5@cluster0.ioe9u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-MONGO_DB_NAME = "seek_db"
+import os
 
-client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
-db = client[MONGO_DB_NAME]
+from pymongo import MongoClient
+
+MONGO_HOST = os.getenv("MONGO_HOST", "mongo")
+MONGO_PORT = os.getenv("MONGO_PORT", "27017")
+MONGO_DB = os.getenv("MONGO_DB", "seek_db")
+
+MONGO_URI = f"mongodb://{MONGO_HOST}:{MONGO_PORT}/{MONGO_DB}?ssl=false"
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB]

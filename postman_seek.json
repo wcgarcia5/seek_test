@@ -24,8 +24,12 @@
                 ],
                 "url": {
                     "raw": "{{base_url}}/books/",
-                    "host": ["{{base_url}}"],
-                    "path": ["books"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books"
+                    ]
                 }
             }
         },
@@ -51,8 +55,12 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/books/",
-                    "host": ["{{base_url}}"],
-                    "path": ["books"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books"
+                    ]
                 }
             }
         },
@@ -78,8 +86,13 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/books/migrate/",
-                    "host": ["{{base_url}}"],
-                    "path": ["books", "migrate"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books",
+                        "migrate"
+                    ]
                 }
             }
         },
@@ -96,8 +109,13 @@
                 ],
                 "url": {
                     "raw": "{{base_url}}/books/:book_id/",
-                    "host": ["{{base_url}}"],
-                    "path": ["books", ":book_id"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books",
+                        ":book_id"
+                    ]
                 }
             }
         },
@@ -114,8 +132,14 @@
                 ],
                 "url": {
                     "raw": "{{base_url}}/books/average-price/:year/",
-                    "host": ["{{base_url}}"],
-                    "path": ["books", "average-price", ":year"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "books",
+                        "average-price",
+                        ":year"
+                    ]
                 }
             }
         },
@@ -136,8 +160,13 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/api/token/",
-                    "host": ["{{base_url}}"],
-                    "path": ["api", "token"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "token"
+                    ]
                 }
             }
         },
@@ -158,8 +187,14 @@
                 },
                 "url": {
                     "raw": "{{base_url}}/api/token/refresh/",
-                    "host": ["{{base_url}}"],
-                    "path": ["api", "token", "refresh"]
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "token",
+                        "refresh"
+                    ]
                 }
             }
         }

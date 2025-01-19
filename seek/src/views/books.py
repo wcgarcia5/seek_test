@@ -13,6 +13,7 @@ class BookView(APIView):
 
     requires authentication
     """
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -24,8 +25,14 @@ class BookView(APIView):
             Response:
                 A Response object containing a list of serialized Book objects
         """
-        books = Book.get_all(request.GET)
-        return Response(books, status=status.HTTP_200_OK)
+        try:
+            books = Book.get_all(request.GET)
+            return Response(books, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     def post(self, request):
         """
@@ -41,20 +48,27 @@ class BookView(APIView):
                 - A Response object containing the serializer errors
                   and an HTTP status code of 400 (BAD REQUEST) if the data is invalid.
         """
-        serializer = BookSerializer(data=request.data)
-        if serializer.is_valid():
-            book_id = Book.create(serializer.validated_data)
-            created_book = Book.get_by_id(book_id)
-            return Response(created_book, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            serializer = BookSerializer(data=request.data)
+            if serializer.is_valid():
+                book_id = Book.create(serializer.validated_data)
+                created_book = Book.get_by_id(book_id)
+                return Response(created_book, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class BookDetailView(APIView):
     """
-        end point to get, edit and delete books
+    end point to get, edit and delete books
 
-        requires authentication
+    requires authentication
     """
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request, book_id: str):
@@ -68,10 +82,18 @@ class BookDetailView(APIView):
             Response:
             Object with book response
         """
-        book = Book.get_by_id(book_id)
-        if not book:
-            return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
-        return Response(book, status=status.HTTP_200_OK)
+        try:
+            book = Book.get_by_id(book_id)
+            if not book:
+                return Response(
+                    {"error": "Book not found"}, status=status.HTTP_404_NOT_FOUND
+                )
+            return Response(book, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     def put(self, request, book_id: str):
         """
@@ -84,14 +106,22 @@ class BookDetailView(APIView):
             Response:
             Object with updated book
         """
-        serializer = BookSerializer(data=request.data, partial=True)
-        if serializer.is_valid():
-            success = Book.update(book_id, serializer.validated_data)
-            if not success:
-                return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
-            updated_book = Book.get_by_id(book_id)
-            return Response(updated_book, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            serializer = BookSerializer(data=request.data, partial=True)
+            if serializer.is_valid():
+                success = Book.update(book_id, serializer.validated_data)
+                if not success:
+                    return Response(
+                        {"error": "Book not found"}, status=status.HTTP_404_NOT_FOUND
+                    )
+                updated_book = Book.get_by_id(book_id)
+                return Response(updated_book, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     def delete(self, request, book_id):
         """
@@ -105,11 +135,18 @@ class BookDetailView(APIView):
             object with an HTTP status code of 204 (NO CONTENT).
             if the deletion was successful.
         """
-
-        success = Book.delete(book_id)
-        if not success:
-            return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        try:
+            success = Book.delete(book_id)
+            if not success:
+                return Response(
+                    {"error": "Book not found"}, status=status.HTTP_404_NOT_FOUND
+                )
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class BookAveragePriceView(APIView):
@@ -118,6 +155,7 @@ class BookAveragePriceView(APIView):
 
     requires authentication
     """
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request, year):
@@ -132,8 +170,17 @@ class BookAveragePriceView(APIView):
             Response:
                 Object containing a dictionary with the year
         """
-        average_price = Book.average_price_by_year(year)
-        return Response({'year': year, 'average_price': average_price}, status=status.HTTP_200_OK)
+        try:
+            average_price = Book.average_price_by_year(year)
+            return Response(
+                {"year": year, "average_price": average_price},
+                status=status.HTTP_200_OK,
+            )
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class BulkBookCreateView(APIView):
@@ -153,16 +200,21 @@ class BulkBookCreateView(APIView):
                 - A Response object containing a list of created books
                   and an HTTP status code of 201 (CREATED) if successful
         """
-        # Check if the input is a list
-        if not isinstance(request.data, list):
-            return Response(
-                {"error": "Expected a list of book objects."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        try:
+            if not isinstance(request.data, list):
+                return Response(
+                    {"error": "Expected a list of book objects."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
-        serializer = BookSerializer(data=request.data, many=True)
-        if serializer.is_valid():
-            created_ids = Book.create_many(serializer.validated_data)
-            created_books = Book.get_by_ids(created_ids)
-            return Response(created_books, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer = BookSerializer(data=request.data, many=True)
+            if serializer.is_valid():
+                created_ids = Book.create_many(serializer.validated_data)
+                created_books = Book.get_by_ids(created_ids)
+                return Response(created_books, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {"error": "Internal Server Error", "message": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
