@@ -43,7 +43,7 @@ class BooksAPI(APITestCase):
     @patch("seek.src.models.books.Book.get_all")
     def test_get_books(self, mock_get_all):
         mock_get_all.return_value = self.mock_books
-        response = self.client.get("/api/books", **self.auth_headers)
+        response = self.client.get("/api/books/", **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("total" in response.data)
         self.assertTrue("pages" in response.data)
@@ -56,19 +56,19 @@ class BooksAPI(APITestCase):
         mock_create.return_value = "4"
         mock_get_by_id.return_value = {**self.new_book_data, "id": "4"}
 
-        response = self.client.post("/api/books", data=self.new_book_data, **self.auth_headers)
+        response = self.client.post("/api/books/", data=self.new_book_data, **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data["title"], self.new_book_data["title"])
 
     def test_create_book_not_values(self):
-        response = self.client.post("/api/books", data={}, **self.auth_headers)
+        response = self.client.post("/api/books/", data={}, **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     @patch("seek.src.models.books.Book.get_by_id")
     def test_get_book_detail(self, mock_get_by_id):
         mock_get_by_id.return_value = self.mock_books.get("books", [{}])[0]
 
-        response = self.client.get(f"/api/books/{self.mock_books.get("books", [{}])[0].get("_id", "")}",
+        response = self.client.get(f"/api/books/{self.mock_books.get("books", [{}])[0].get("_id", "")}/",
                                    **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["title"], "test")
@@ -81,7 +81,7 @@ class BooksAPI(APITestCase):
         mock_get_by_id.return_value = {**self.mock_books.get("books", [{}])[0],
                                        **updated_data}
 
-        response = self.client.put(f"/api/books/{self.mock_books.get("books", [{}])[0].get("_id", "")}",
+        response = self.client.put(f"/api/books/{self.mock_books.get("books", [{}])[0].get("_id", "")}/",
                                    data=updated_data, **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["title"], "Updated Book One")
@@ -90,13 +90,13 @@ class BooksAPI(APITestCase):
     def test_delete_book(self, mock_delete):
         mock_delete.return_value = True
 
-        response = self.client.delete(f"/api/books/{self.mock_books.get("books", [{}])[0].get("_id", "")}",
+        response = self.client.delete(f"/api/books/{self.mock_books.get("books", [{}])[0].get("_id", "")}/",
                                       **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     @patch("seek.src.models.books.Book.average_price_by_year")
     def test_average_price(self, mock_average_price_by_year):
         mock_average_price_by_year.return_value = 13.49
-        response = self.client.get("/api/books/average-price/2020", **self.auth_headers)
+        response = self.client.get("/api/books/average-price/2020/", **self.auth_headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["average_price"], 13.49)
