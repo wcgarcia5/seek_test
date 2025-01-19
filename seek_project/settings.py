@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -79,20 +80,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'mongo': {
+    "mongo": {
         'ENGINE': 'djongo',
-        'NAME': 'seek_db',  # Nombre de la base de datos que usarás en MongoDB Atlas
-        'ENFORCE_SCHEMA': False,  # Si quieres usar esquema flexible (en MongoDB es opcional)
-        'CLIENT': {
-            'host': 'mongodb+srv://wcgarcia5:<db_password>@cluster0.ioe9u.mongodb.net/',  # URI de tu MongoDB Atlas
-            'username': 'wcgarcia5',  # Tu nombre de usuario en MongoDB Atlas
-            'password': 'wcgarcia5',  # Tu contraseña de MongoDB Atlas
-            'authSource': 'admin',  # Usualmente 'admin' en MongoDB Atlas
-            'authMechanism': 'SCRAM-SHA-1',  # El mecanismo de autenticación, generalmente es este
-            'tls': True,  # Asegúrate de usar TLS para la conexión
-            'tlsAllowInvalidCertificates': True,
-        }
+        'NAME': os.getenv('MONGO_DB', 'default_db'),
+        'HOST': os.getenv('MONGO_HOST', 'localhost'),
+        'PORT': int(os.getenv('MONGO_PORT', 27017)),
     }
+
 }
 
 # Password validation
@@ -119,7 +113,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ],
+    ]
 }
 
 # Internationalization
