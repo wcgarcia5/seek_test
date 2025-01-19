@@ -20,13 +20,11 @@ COPY . /app/
 
 # Copy the script to create a user into the container
 COPY create_user.sh /app/
+RUN chown root:root /app/create_user.sh
 RUN chmod +x /app/create_user.sh
 
 # Set environment variable to prevent Python from buffering output
 ENV PYTHONUNBUFFERED=1
 
-# Expose the port that the app will run on
-EXPOSE 8000
-
-# Default command to run when the container starts: create user and then run Django server
-CMD ["sh", "-c", "/app/create_user.sh && python manage.py runserver 0.0.0.0:8000"]
+# Run migrations and create the user, then start the app
+CMD ["sh", "-c", "python manage.py migrate && /app/create_user.sh && python manage.py runserver 0.0.0.0:8000"]
