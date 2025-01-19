@@ -46,8 +46,8 @@ Este proyecto está desarrollado con las siguientes tecnologías:
 ### 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/usuario/proyecto.git
-cd proyecto
+git clone https://github.com/wcgarcia5/seek_test.git
+cd seek_test
 ```
 
 ## Uso de la API
