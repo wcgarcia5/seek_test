@@ -1,365 +1,488 @@
 {
-  "info": {
-    "_postman_id": "12345-67890-abcdef",
-    "name": "Books API Collection",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "variable": [
-      {
-        "key": "base_url",
-        "value": "http://localhost:8000/api"
-      }
-    ]
-  },
-  "item": [
-    {
-      "name": "Books",
-      "item": [
-        {
-          "name": "Books List",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/books",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Create Book",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Sample Book\",\n  \"author\": \"John Doe\",\n  \"price\": 19.99,\n  \"published_year\": 2023\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/books",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Bulk Create Books",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "[\n  {\n    \"title\": \"Book 1\",\n    \"author\": \"Author 1\",\n    \"price\": 10.5,\n    \"published_year\": 2022\n  },\n  {\n    \"title\": \"Book 2\",\n    \"author\": \"Author 2\",\n    \"price\": 15.0,\n    \"published_year\": 2023\n  }\n]"
-            },
-            "url": {
-              "raw": "{{base_url}}/books/migrate",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books",
-                "migrate"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Get Book by ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/books/:book_id",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books",
-                ":book_id"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Update Book by ID",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"price\": 25.0\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/books/:book_id",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books",
-                ":book_id"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Delete Book by ID",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/books/:book_id",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books",
-                ":book_id"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Average Price by Year",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/books/average-price/:year",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books",
-                "average-price",
-                ":year"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Errors",
-      "item": [
-        {
-          "name": "Internal Server Error",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/books",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "500 Internal Server Error",
-              "status": "Internal Server Error",
-              "code": 500,
-              "body": "{\n  \"error\": \"Internal server error\"\n}"
-            }
-          ]
-        },
-        {
-          "name": "Bad Request",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer <YOUR_TOKEN>",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{base_url}}/books",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "books"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "400 Bad Request",
-              "status": "Bad Request",
-              "code": 400,
-              "body": "{\n  \"error\": \"Invalid data\"\n}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "User Registration",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"new_user\",\n  \"password\": \"secure_password\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/register",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "register"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Token Obtain Pair",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"user\",\n  \"password\": \"password\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/token",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "token"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Token Refresh",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"refresh\": \"<REFRESH_TOKEN>\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/token/refresh",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "token",
-                "refresh"
-              ]
-            }
-          }
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "3f2966fd-249f-40a5-b0fe-914244ba2ff4",
+		"name": "Seek Test API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9663109"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Books List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Sample Book\",\n  \"author\": \"John Doe\",\n  \"price\": 19.99,\n  \"published_year\": 2023\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Create Books",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3MzUzMjEzLCJqdGkiOiI5YWZjNDYxNWQxOTg0NmYwYmI2YTc3OTE5ZDBkZDcyYyIsInVzZXJfaWQiOjN9.hpt9BbguVKIkS7A8jliR5ntaR0_CNDl89kTOsqEiMFo",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"title\": \"El Reino Perdido\",\n    \"author\": \"Ana Martínez\",\n    \"price\": 12.99,\n    \"published_date\": \"2024-03-15\",\n    \"genre\": \"fantasía\"\n  },\n  {\n    \"title\": \"Sombras en el Tiempo\",\n    \"author\": \"Carlos López\",\n    \"price\": 18.5,\n    \"published_date\": \"2023-11-02\",\n    \"genre\": \"ficción\"\n  },\n  {\n    \"title\": \"El Bosque de los Sueños\",\n    \"author\": \"Laura Gómez\",\n    \"price\": 14.75,\n    \"published_date\": \"2025-05-10\",\n    \"genre\": \"fantasía\"\n  },\n  {\n    \"title\": \"La Última Estación\",\n    \"author\": \"Pedro Ruiz\",\n    \"price\": 20.0,\n    \"published_date\": \"2023-08-19\",\n    \"genre\": \"ficción\"\n  },\n  {\n    \"title\": \"La Profecía del Dragón\",\n    \"author\": \"Miguel Fernández\",\n    \"price\": 16.25,\n    \"published_date\": \"2024-06-30\",\n    \"genre\": \"fantasía\"\n  }\n]"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/migrate/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"migrate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books/:book_id/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								":book_id",
+								""
+							],
+							"variable": [
+								{
+									"key": "book_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 25.0\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/:book_id/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								":book_id",
+								""
+							],
+							"variable": [
+								{
+									"key": "book_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books/:book_id/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								":book_id",
+								""
+							],
+							"variable": [
+								{
+									"key": "book_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Average Price by Year",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books/average-price/2003/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"average-price",
+								"2003",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Errors",
+			"item": [
+				{
+					"name": "Create Book - Missing Fields",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Book Without Author\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book - Invalid Fields",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Book With Invalid Price\",\n  \"author\": \"Author Name\",\n  \"price\": \"invalid\",\n  \"published_year\": 2023\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book - Not Found",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books/nonexistent_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"nonexistent_id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Create Books - Invalid Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"title\": \"Valid Book\",\n    \"author\": \"Valid Author\",\n    \"price\": 19.99,\n    \"published_year\": 2023\n  },\n  {\n    \"title\": \"Invalid Book\",\n    \"author\": \"\",\n    \"price\": \"NaN\",\n    \"published_year\": \"not-a-year\"\n  }\n]"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/migrate/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"migrate",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "User Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"new_user\",\n  \"password\": \"secure_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Obtain Pair",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"new_user\",\n  \"password\": \"secure_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/token/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Refresh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refresh\": \"<REFRESH_TOKEN>\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/token/refresh/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://52.42.151.155:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
 }
