@@ -9,14 +9,6 @@ Este proyecto es una API RESTful creada con **Django REST Framework** (Django RF
 1. [Descripción](#descripción)
 2. [Tecnologías utilizadas](#tecnologías-utilizadas)
 3. [Instalación](#instalación)
-4. [Uso de la API](#uso-de-la-api)
-5. [Ejecutar el proyecto con Docker](#ejecutar-el-proyecto-con-docker)
-
-6. [Crear Usuario para usar llamados](#create-users)
-
-7. [Agregar Libros de Prueba](#agregar-libros-prueba)
-
-8. [Test Unitarios y Coverage](#test-unit-coverage)
 
 
 ---
@@ -55,7 +47,7 @@ git clone https://github.com/wcgarcia5/seek_test.git
 cd seek_test
 ```
 
-## Uso de la API
+## 2. Uso de la API
 En el repositorio se encuentran 2 Archivos llamados
 ```bash
 postman.json
@@ -63,13 +55,13 @@ Swagger.json
 ```
 estos muestran como usar el API
 
-## Ejecutar el proyecto con Docker
+## 3. Ejecutar el proyecto con Docker
 ```bash
 docker-compose up --build
 ```
 
 
-## Crear Usuario para usar llamados
+## 4. Crear Usuario para usar llamados
 Para crear usuarios de pruebas debes ejecutar la peticion de  `/register` permite crear un nuevo usuario en la aplicación.
 
 ### URL
@@ -91,7 +83,7 @@ El cuerpo de la petición debe contener los siguientes campos en formato JSON:
 ```
 
 
-## Agregar Libros de Prueba
+## 5. Agregar Libros de Prueba
 Cuando hayas clonado el repositorio y creado tu access_token puedes correr la peticion que se encuentra en postman llamada "Migrate Books (Bulk Create)" o hacer un curl si deseas tu mismo agregar los libros
 
 ```bash
@@ -109,7 +101,7 @@ curl --location 'localhost:8000/api/books/migrate' \
 ]'
 ```
 
-## Test Unitarios y Coverage
+## 6. Test Unitarios y Coverage
 ```bash
 coverage run manage.py test 
 coverage report
