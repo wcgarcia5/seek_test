@@ -12,11 +12,12 @@ Este proyecto es una API RESTful creada con **Django REST Framework** (Django RF
 4. [Uso de la API](#uso-de-la-api)
 5. [Ejecutar el proyecto con Docker](#ejecutar-el-proyecto-con-docker)
 
-6. [Agregar Libros de Prueba](#agregar-libros-prueba)
+6. [Crear Usuario para usar llamados](#create-users)
 
-7. [Test Unitarios y Coverage](#test-unit-coverage)
+7. [Agregar Libros de Prueba](#agregar-libros-prueba)
 
-8. [A tener en cuenta](#observations)
+8. [Test Unitarios y Coverage](#test-unit-coverage)
+
 
 ---
 
@@ -67,6 +68,29 @@ estos muestran como usar el API
 docker-compose up --build
 ```
 
+
+## Crear Usuario para usar llamados
+Para crear usuarios de pruebas debes ejecutar la peticion de  `/register` permite crear un nuevo usuario en la aplicación.
+
+### URL
+`POST /register`
+
+### Headers
+| Key           | Value              | Required |
+|---------------|--------------------|----------|
+| Content-Type  | application/json   | Sí       |
+
+### Body
+El cuerpo de la petición debe contener los siguientes campos en formato JSON:
+
+```json
+{
+  "username": "new_user",
+  "password": "secure_password"
+}
+```
+
+
 ## Agregar Libros de Prueba
 Cuando hayas clonado el repositorio y creado tu access_token puedes correr la peticion que se encuentra en postman llamada "Migrate Books (Bulk Create)" o hacer un curl si deseas tu mismo agregar los libros
 
@@ -91,23 +115,3 @@ coverage run manage.py test
 coverage report
 coverage html
 ```
-
-## A tener en cuenta
-Para crear usuarios de pruebas debes ejecutar la peticion de  `/register` permite crear un nuevo usuario en la aplicación.
-
-### URL
-`POST /register`
-
-### Headers
-| Key           | Value              | Required |
-|---------------|--------------------|----------|
-| Content-Type  | application/json   | Sí       |
-
-### Body
-El cuerpo de la petición debe contener los siguientes campos en formato JSON:
-
-```json
-{
-  "username": "new_user",
-  "password": "secure_password"
-}
